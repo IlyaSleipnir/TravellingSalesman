@@ -361,3 +361,17 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/TravellingSalesman/file1.txt
+/TravellingSalesman/Graph.cpp
+/TravellingSalesman/Graph.h
+/TravellingSalesman/TravellingSalesman.cpp
+/TravellingSalesman/TravellingSalesman.vcxproj
+/TravellingSalesman/TravellingSalesman.vcxproj.filters
+/TravellingSalesman.sln
+/TravellingSalesman/file1.txt
+/TravellingSalesman/Graph.cpp
+/TravellingSalesman/Graph.h
+/TravellingSalesman/TravellingSalesman.cpp
+/TravellingSalesman/TravellingSalesman.vcxproj
+/TravellingSalesman/TravellingSalesman.vcxproj.filters
+/TravellingSalesman.sln
