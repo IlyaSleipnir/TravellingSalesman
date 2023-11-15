@@ -49,7 +49,7 @@ int main(int argc, char* argv[])
         try
         {
             std::vector<int> res;
-            int len;
+            int len = 0;
             Graph graph(path);
             if (complite_mode)
                 res = graph.np_complete();
