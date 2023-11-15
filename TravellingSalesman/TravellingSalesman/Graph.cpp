@@ -8,6 +8,16 @@ Graph::Graph()
 
 }
 
+const std::vector<std::vector<int>> Graph::get_data()
+{
+	return _data;
+}
+
+const int Graph::get_elem(int i, int j)
+{
+	return _data[i][j];
+}
+
 std::vector<int>Graph::read_line(std::ifstream& file)
 {
 	std::string line;
@@ -75,9 +85,7 @@ Graph::Graph(std::vector<std::vector<int>> data)
 std::vector<int> Graph::np_complete()
 {
 	std::vector<int> min_path;
-	int min_path_length = INT_MAX;
-	std::vector<int> path;
-	int path_length;
+	int min_length = INT_MAX;
 
 	std::vector<int> vertices;
 	for (int i = 0; i < _size; i++)
@@ -90,8 +98,10 @@ std::vector<int> Graph::np_complete()
 	// Перебор всех перестановок вершин пути
 	do
 	{
+		std::vector<int> path;
+		path.push_back(vertices[0]);
+		int length = 0;
 		int elem;
-		path_length = 0;
 
 		for (int i = 1; i < _size; i++)
 		{
@@ -100,115 +110,34 @@ std::vector<int> Graph::np_complete()
 
 			if (elem <= 0)
 			{
-				path_length = INT_MAX;
+				length = INT_MAX;
 				break;
 			}
 			else
 			{
-				path_length += elem;
+				length += elem;
 			}
 		}
 
-		// Замыкание пути
-		elem = _data[vertices[_size - 1]][vertices[0]];
-		if (elem <= 0)
-			continue;
+		
 
-		if (path_length < min_path_length)
+		if (length < min_length)
 		{
+			// Замыкание пути
+			elem = _data[vertices[_size - 1]][vertices[0]];
+			if (elem <= 0)
+				continue;
+			path.push_back(vertices[0]);
+			length += elem;
+
 			min_path = path;
-			min_path_length = path_length;
+			min_length = length;
 		}
 
 	} while (std::next_permutation(vertices.begin(), vertices.end()));
 
 	return min_path;
 }
-
-//std::vector<std::vector<int>> Graph::dijkstra(int start_vertix)
-//{
-//	std::vector<std::vector<int>> data;
-//	for (int i = 0; i < _size; i++)
-//	{
-//		std::vector<int> tmp;
-//		data.push_back(tmp);
-//	}
-//
-//	//int min_path_length = INT_MAX;
-//	//std::vector<int> min_path;
-//
-//	//int path_length;
-//	//std::vector<int> path;
-//
-//	// Минимальное расстояние до вершины
-//	std::vector<int> disatnces;
-//	for (int i = 0; i < _size; i++)
-//	{
-//		disatnces.push_back(0);
-//	}
-//	
-//	// Список посещенных вершин
-//	std::vector<bool> visited;
-//	for (int i = 0; i < _size; i++)
-//	{
-//		visited.push_back(false);
-//	}
-//
-//	for (int i = 0; i < _size; i++)
-//	{
-//		if (i == start_vertix)
-//		{
-//			std::vector<int> path;
-//			path.push_back(start_vertix);
-//			disatnces[i] = 0;
-//			data[i] = path;
-//		}
-//		else
-//		{
-//			disatnces[i] = INT_MAX;
-//		}
-//	}
-//
-//	int ind = -1;
-//	// Минимальная дистанция до вершины
-//	int min;
-//	do
-//	{
-//		min = INT_MAX;
-//		for (int i = 0; i < _size; i++)
-//		{
-//			if (!visited[i] && disatnces[i] < INT_MAX)
-//			{
-//				min = disatnces[i];
-//				ind = i;
-//			}
-//		}
-//
-//		if (min < INT_MAX)
-//		{
-//			for (int i = 0; i < _size; i++)
-//			{
-//				int elem = _data[ind][i];
-//				if (elem > 0)
-//				{
-//					int tmp = min + elem;
-//					if (tmp < disatnces[i])
-//					{
-//						disatnces[i] = tmp;
-//						data[i] = data[ind];
-//						data[i].push_back(i);
-//						/*path[i] = path[ind];
-//						path[i] =*/ 
-//					}
-//				}
-//			}
-//			visited[ind] = true;
-//		}
-//	} while (min < INT_MAX);
-//
-//	return data;
-//
-//}
 
 std::vector<int> Graph::np_partial()
 {
@@ -231,7 +160,7 @@ std::vector<int> Graph::np_partial()
 			// Флаг продвижения на очередной итерации 
 			bool is_moving = false;
 
-			for (int i = 0; _data[last_vetix].size(); i++)
+			for (int i = 0; i < _data[last_vetix].size(); i++)
 			{
 				int d = _data[last_vetix][i];
 				if (!vector_consists(path, i) && d < min_d && d > 0)
@@ -251,6 +180,16 @@ std::vector<int> Graph::np_partial()
 			path.push_back(next_vertix);
 			length += min_d;
 		}
+
+		// Замыкание пути
+		int last_d = _data[path.back()][k];
+		if (last_d > 0)
+		{
+			path.push_back(k);
+			length += last_d;
+		}
+		else
+			is_finished = false;
 
 		if (!is_finished)
 			continue;

@@ -44,21 +44,25 @@ int main(int argc, char* argv[])
             std::cout << help_str << std::endl;
     }
     
-
     if (path != "")
     {
         try
         {
             std::vector<int> res;
+            int len;
             Graph graph(path);
             if (complite_mode)
                 res = graph.np_complete();
             else
                 res = graph.np_partial();
 
+            std::cout << "Путь: ";
             for (auto elem : res)
                 std::cout << elem << " ";
             std::cout << std::endl;
+            for (int i = 1; i < res.size(); i++)
+                len += graph.get_elem(res[i - 1], res[i]);
+            std::cout << "Длина пути: " << len << std::endl;
         }
         catch (std::string error)
         {
