@@ -1,0 +1,10 @@
+﻿  Graph.cpp
+G:\проекты\2GIS\С++\TravellingSalesman\TravellingSalesman\TravellingSalesman\Graph.cpp(53,11): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+G:\проекты\2GIS\С++\TravellingSalesman\TravellingSalesman\TravellingSalesman\Graph.cpp(76,11): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+G:\проекты\2GIS\С++\TravellingSalesman\TravellingSalesman\TravellingSalesman\Graph.cpp(223,19): warning C4244: инициализация: преобразование "__int64" в "int", возможна потеря данных
+  TravellingSalesman.cpp
+  Создание кода
+  Previous IPDB not found, fall back to full compilation.
+  All 392 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Создание кода завершено
+  TravellingSalesman.vcxproj -> G:\проекты\2GIS\С++\TravellingSalesman\TravellingSalesman\x64\Release\TravellingSalesman.exe
